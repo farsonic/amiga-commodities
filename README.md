@@ -18,7 +18,9 @@ Both are about 5 KB, use no CPU while idle and appear in Commodities Exchange
 ## Install
 
 Copy `ClickToFront` and `StickyMenus` (with their icons) to
-`SYS:WBStartup` to start them at boot, or to `SYS:Tools/Commodities` to start
+`SYS:WBStartup` to start them at boot (their icons carry the `DONOTWAIT`
+tool type, so Workbench does not wait for them to "return" - commodities
+keep running), or to `SYS:Tools/Commodities` to start
 them by double-click. From a Shell: `Run >NIL: ClickToFront`.
 
 ## Tool types

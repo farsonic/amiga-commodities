@@ -10,9 +10,9 @@ mkdir -p "$pkg/Source"
 icon="python3 $top/tools/mkicon.py"
 cp "$top/build/ClickToFront" "$top/build/StickyMenus" "$pkg/"
 $icon tool "$pkg/ClickToFront.info" --image ctf --stack 4096 --pos 10,10 \
-	--tooltype "CX_PRIORITY=0" --tooltype "(QUALIFIER=NONE)" --tooltype "(ONRELEASE=NO)"
+	--tooltype "DONOTWAIT" --tooltype "CX_PRIORITY=0" --tooltype "(QUALIFIER=NONE)" --tooltype "(ONRELEASE=NO)"
 $icon tool "$pkg/StickyMenus.info" --image sticky --stack 4096 --pos 90,10 \
-	--tooltype "CX_PRIORITY=0" --tooltype "(CLICKTIME=350)"
+	--tooltype "DONOTWAIT" --tooltype "CX_PRIORITY=0" --tooltype "(CLICKTIME=350)"
 cp "$top/README.md" "$pkg/ReadMe"
 $icon project "$pkg/ReadMe.info" --image doc --tool SYS:Utilities/MultiView --pos 170,10
 cp "$top"/src/*.c "$top"/src/*.h "$top/LICENSE" "$pkg/Source/"
