@@ -23,7 +23,14 @@ ClickToFront and StickyMenus are about 5 KB. All use no CPU while idle and appea
 
 ## Install
 
-Copy `ClickToFront`, `StickyMenus` and `NoIconFrames` (with their icons) to
+Double-click **Install-Commodities**: it asks which commodities to install
+(ClickToFront, StickyMenus, NoIconFrames, any combination), where to put them
+(SYS:WBStartup to start them at every boot, SYS:Tools/Commodities, or a drawer
+of your choice) and whether to start them now. It needs Installer (on the
+Workbench 3.1 Install disk, in SYS:Utilities on 3.5 and later); if Workbench
+can't find it, set the icon's Default Tool to where Installer is.
+
+Or by hand: Copy `ClickToFront`, `StickyMenus` and `NoIconFrames` (with their icons) to
 `SYS:WBStartup` to start them at boot (their icons carry the `DONOTWAIT`
 tool type, so Workbench does not wait for them to "return" - commodities
 keep running), or to `SYS:Tools/Commodities` to start

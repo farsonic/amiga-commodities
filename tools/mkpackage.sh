@@ -15,6 +15,9 @@ $icon tool "$pkg/StickyMenus.info" --image sticky --stack 4096 --pos 90,10 \
 	--tooltype "DONOTWAIT" --tooltype "CX_PRIORITY=0" --tooltype "(CLICKTIME=350)"
 $icon tool "$pkg/NoIconFrames.info" --image noframes --stack 4096 --pos 170,10 \
 	--tooltype "DONOTWAIT"
+cp "$top/pkg/Install-Commodities" "$pkg/"
+$icon project "$pkg/Install-Commodities.info" --image install --tool Installer --stack 20000 --pos 10,60 \
+	--tooltype "APPNAME=Commodities"
 cp "$top/README.md" "$pkg/ReadMe"
 $icon project "$pkg/ReadMe.info" --image doc --tool SYS:Utilities/MultiView --pos 250,10
 cp "$top"/src/*.c "$top"/src/*.h "$top/LICENSE" "$pkg/Source/"

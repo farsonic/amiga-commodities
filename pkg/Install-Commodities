@@ -1,0 +1,100 @@
+; $VER: Install-Commodities 1.0 (10.11.2026)
+;
+; Installer script for the Commodities archive: ClickToFront, StickyMenus and
+; NoIconFrames. You choose which ones to copy and where (WBStartup starts them
+; at every boot; Tools/Commodities lets you start them by double-click), and
+; whether to start them now. Written for the Commodore/Amiga Installer V43
+; language; it also runs with InstallerLG and the AROS Installer.
+; SPDX-License-Identifier: GPL-2.0-only
+
+(set #version "1.0")
+(if (= @app-name "") (set @app-name "Commodities"))
+
+(welcome
+  (cat "Commodities " #version "\n\n"
+       "Three small commodities for AmigaOS 3.x:\n\n"
+       "  ClickToFront - click anywhere in a window to bring it to the front\n"
+       "  StickyMenus - menus stay open after a click, like on a Mac\n"
+       "  NoIconFrames - Workbench icons without the box around them (OS 3.5+)\n\n"
+       "Each one appears in Commodities Exchange, uses no CPU while idle, "
+       "and stops when started a second time."))
+
+; NoIconFrames needs icon.library V44 (OS 3.5 and newer)
+(set #icon (/ (getversion "LIBS:icon.library") 65536))
+(if (= #icon 0) (set #icon (/ (getversion "icon.library" (resident)) 65536)))
+(set #nif-ok (>= #icon 44))
+
+(set #which
+  (askoptions
+    (prompt "Which commodities do you want to install?")
+    (help (cat "ClickToFront: a click anywhere in a window brings it to the front (tool types QUALIFIER, ONRELEASE).\n\n"
+               "StickyMenus: a short right-button click leaves the menus open; click an item to choose it (tool type CLICKTIME).\n\n"
+               "NoIconFrames: draws Workbench icons without frames. It needs icon.library 44 or newer "
+               "(AmigaOS 3.5, 3.9, 3.1.4, 3.2); your icon.library is version " #icon ".\n\n"
+               @askoptions-help))
+    (choices "ClickToFront" "StickyMenus"
+             (if #nif-ok "NoIconFrames" "NoIconFrames (needs OS 3.5+, not recommended here)"))
+    (default (if #nif-ok 7 3))))
+
+(if (= #which 0)
+  (exit "Nothing was selected, so nothing was installed." (quiet)))
+
+(set #where
+  (askchoice
+    (prompt "Where should they go?")
+    (help (cat "SYS:WBStartup: they start by themselves every time the Amiga boots.\n\n"
+               "SYS:Tools/Commodities: start them by double-clicking their icons (or from Exchange).\n\n"
+               "Somewhere else: a drawer of your choice.\n\n"
+               @askchoice-help))
+    (choices "SYS:WBStartup (start at every boot)"
+             "SYS:Tools/Commodities (start by double-click)"
+             "Another drawer...")
+    (default 0)))
+
+; (plain ifs rather than select: some Installers return the index from select)
+(set #dest "SYS:WBStartup")
+(if (= #where 1) (set #dest "SYS:Tools/Commodities"))
+(if (= #where 2)
+  (set #dest
+    (askdir
+      (prompt "Choose the drawer for the commodities")
+      (help @askdir-help)
+      (default "SYS:Tools/Commodities"))))
+(if (not (exists #dest (noreq))) (makedir #dest (infos)))
+
+(if (IN #which 0)
+  (copyfiles
+    (prompt "Copying ClickToFront to " #dest)
+    (help @copyfiles-help)
+    (source "ClickToFront")
+    (dest #dest)
+    (infos)))
+(if (IN #which 1)
+  (copyfiles
+    (prompt "Copying StickyMenus to " #dest)
+    (help @copyfiles-help)
+    (source "StickyMenus")
+    (dest #dest)
+    (infos)))
+(if (IN #which 2)
+  (copyfiles
+    (prompt "Copying NoIconFrames to " #dest)
+    (help @copyfiles-help)
+    (source "NoIconFrames")
+    (dest #dest)
+    (infos)))
+
+
+(set #start
+  (askbool
+    (prompt "Start the installed commodities now?")
+    (help "Each one is started in the background (Run). Starting one that is already running stops it, so answer No if they are already running.")
+    (default 1)))
+(if #start (if (IN #which 0) (run (cat "Run >NIL: \"" (tackon #dest "ClickToFront") "\""))))
+(if #start (if (IN #which 1) (run (cat "Run >NIL: \"" (tackon #dest "StickyMenus") "\""))))
+(if #start (if (IN #which 2) (run (cat "Run >NIL: \"" (tackon #dest "NoIconFrames") "\""))))
+
+(set @default-dest #dest)
+(exit (cat "Installed in " #dest ".\n\n"
+           "Commodities Exchange (SYS:Tools/Commodities/Exchange) can disable or remove them; "
+           "their icons' tool types change their settings."))
