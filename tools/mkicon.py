@@ -245,8 +245,21 @@ def image_sticky():
     return c
 
 
+def image_noframes():
+    """A little icon whose frame is fading away (dotted, with gaps)."""
+    c = Canvas(40, 24)
+    for x in range(2, 38, 3):
+        c.hline(x, x, 1, BLACK); c.hline(x, x, 22, BLACK)
+    for y in range(1, 23, 3):
+        c.hline(2, 2, y, BLACK); c.hline(37, 37, y, BLACK)
+    c.rect(12, 6, 27, 17, BLUE)          # the icon itself: a small blue drawer
+    c.frame(12, 6, 27, 17, BLACK)
+    c.rect(16, 10, 23, 12, WHITE)
+    return c
+
+
 IMAGES = {"ctf": image_ctf, "sticky": image_sticky, "install": image_install, "doc": image_doc, "drawer": image_drawer,
-          "docs": lambda: image_drawer(True), "prefs": image_prefs, "share": image_share}
+          "docs": lambda: image_drawer(True), "prefs": image_prefs, "share": image_share, "noframes": image_noframes}
 
 
 # ---------------------------------------------------------------- writer --

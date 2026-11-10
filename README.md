@@ -1,6 +1,7 @@
-# ClickToFront and StickyMenus
+# ClickToFront, StickyMenus and NoIconFrames
 
-Two small commodities for AmigaOS 3.x (any 68000 or better, OS 2.04+):
+Small commodities for AmigaOS 3.x (any 68000 or better; ClickToFront and
+StickyMenus need OS 2.04+, NoIconFrames OS 3.5+):
 
 - **ClickToFront** - click anywhere in a window (its border, title bar or
   contents) and the window comes to the front. Backdrop windows (like the
@@ -11,13 +12,18 @@ Two small commodities for AmigaOS 3.x (any 68000 or better, OS 2.04+):
   without holding a button, then click an item (left or right button) to
   choose it, or click anywhere else to close the menus. Holding the button
   and releasing over an item still works the classic Amiga way.
+- **NoIconFrames** - Workbench icons without the box around them. It
+  switches icon.library's global "frameless" setting on (OS 3.5, 3.9, 3.1.4,
+  3.2: icon.library V44 or newer) and makes the Workbench redraw. Disable
+  in Exchange, or quitting it, puts the frames back. About 1.3 KB, no input
+  handler and no C library: it only waits for Exchange and Ctrl-C.
 
-Both are about 5 KB, use no CPU while idle and appear in Commodities Exchange
+ClickToFront and StickyMenus are about 5 KB. All use no CPU while idle and appear in Commodities Exchange
 (Enable, Disable, Remove). Starting one again stops it.
 
 ## Install
 
-Copy `ClickToFront` and `StickyMenus` (with their icons) to
+Copy `ClickToFront`, `StickyMenus` and `NoIconFrames` (with their icons) to
 `SYS:WBStartup` to start them at boot (their icons carry the `DONOTWAIT`
 tool type, so Workbench does not wait for them to "return" - commodities
 keep running), or to `SYS:Tools/Commodities` to start
