@@ -7,6 +7,10 @@
 ; language; it also runs with InstallerLG and the AROS Installer.
 ; SPDX-License-Identifier: GPL-2.0-only
 
+; the drawer this script is in: Workbench may start Installer with another current
+; directory, so sources are found through the icon's path (#src)
+(if (= @icon "") (set #src "") (set #src (pathonly @icon)))
+
 (set #version "1.0")
 (if (= @app-name "") (set @app-name "Commodities"))
 
@@ -66,21 +70,21 @@
   (copyfiles
     (prompt "Copying ClickToFront to " #dest)
     (help @copyfiles-help)
-    (source "ClickToFront")
+    (source (tackon #src "ClickToFront"))
     (dest #dest)
     (infos)))
 (if (IN #which 1)
   (copyfiles
     (prompt "Copying StickyMenus to " #dest)
     (help @copyfiles-help)
-    (source "StickyMenus")
+    (source (tackon #src "StickyMenus"))
     (dest #dest)
     (infos)))
 (if (IN #which 2)
   (copyfiles
     (prompt "Copying NoIconFrames to " #dest)
     (help @copyfiles-help)
-    (source "NoIconFrames")
+    (source (tackon #src "NoIconFrames"))
     (dest #dest)
     (infos)))
 
