@@ -1,0 +1,20 @@
+# Checks that run without an Amiga toolchain: the Installer script's static checks and the icon
+# generator. Building the commodities needs vbcc and the NDK, and testing them an emulator; see CLAUDE.md.
+name: tests
+on:
+  push:
+  pull_request:
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Installer script
+        run: python3 tools/checkinst.py pkg/Install-Commodities
+      - name: Icons
+        run: |
+          mkdir -p icons
+          python3 tools/mkicon.py tool icons/ClickToFront.info --image ctf --stack 4096 --tooltype DONOTWAIT
+          python3 tools/mkicon.py tool icons/StickyMenus.info --image sticky --stack 4096 --tooltype DONOTWAIT
+          python3 tools/mkicon.py tool icons/NoIconFrames.info --image noframes --stack 4096 --tooltype DONOTWAIT
+          ls -l icons

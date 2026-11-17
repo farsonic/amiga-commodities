@@ -1,0 +1,46 @@
+name: Bug report
+description: Something in ClickToFront, StickyMenus, NoIconFrames or the installer doesn't work as it should
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what it did instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open ...
+        2. Choose ...
+        3. ...
+  - type: dropdown
+    id: which
+    attributes:
+      label: Which commodity
+      options: [ClickToFront, StickyMenus, NoIconFrames, Install-Commodities]
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version and tool types
+      description: "Version ClickToFront (etc.) in a Shell, and any tool types you changed."
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: System
+      description: AmigaOS version, CPU, screen mode (RTG or AGA), and other commodities or patches running (MagicMenu, NewIcons, ...).
+      placeholder: AmigaOS 3.2, 68040 (PiStorm), RTG 1280x720, MagicMenu running
+    validations:
+      required: true
+  - type: textarea
+    id: files
+    attributes:
+      label: Screenshot and window
+      description: A screenshot, and which program's window it happened in. A crash's Guru Meditation number helps too.

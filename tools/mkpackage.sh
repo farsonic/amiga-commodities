@@ -19,6 +19,7 @@ cp "$top/pkg/Install-Commodities" "$pkg/"
 $icon project "$pkg/Install-Commodities.info" --image install --tool Installer --stack 20000 --pos 10,60 \
 	--tooltype "APPNAME=Commodities"
 cp "$top/README.md" "$pkg/ReadMe"
+cp "$top/LICENSE" "$pkg/LICENSE"
 $icon project "$pkg/ReadMe.info" --image doc --tool SYS:Utilities/MultiView --pos 250,10
 cp "$top"/src/*.c "$top"/src/*.h "$top/LICENSE" "$pkg/Source/"
 $icon drawer "$stage/Commodities.info" --image drawer --window 60,40,300,90
