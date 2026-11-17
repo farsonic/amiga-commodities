@@ -1,5 +1,7 @@
 # ClickToFront, StickyMenus and NoIconFrames
 
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-farsonic-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/farsonic)
+
 Small commodities for AmigaOS 3.x (any 68000 or better; ClickToFront and
 StickyMenus need OS 2.04+, NoIconFrames OS 3.5+):
 
